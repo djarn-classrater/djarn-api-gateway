@@ -9,7 +9,6 @@ export class ReviewsService extends RESTDataSource {
   }
 
   async getReviews() {
-    const res = await this.get('reviews')
-    return res
+    return this.get('reviews')
   }
 }
