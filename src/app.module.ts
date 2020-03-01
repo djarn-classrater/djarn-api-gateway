@@ -3,13 +3,23 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PingModule } from './ping/ping.module';
+import { ReviewsModule } from './reviews/reviews.module';
+import { ReviewsService } from './reviews/reviews.service'
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
-      autoSchemaFile: './*/*.gql'
+      dataSources: () => ({
+        reviewsAPI: new ReviewsService
+      }),
+      autoSchemaFile: 'generate.gql',
+      include: [
+        PingModule,
+        ReviewsModule,
+      ]
     }),
-    PingModule
+    PingModule,
+    ReviewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
