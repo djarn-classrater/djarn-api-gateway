@@ -1,4 +1,5 @@
 import { ObjectType, Field, Int } from 'type-graphql'
+import { ReviewType } from '../reviews/reviews.dto'
 
 @ObjectType()
 export class CourseType {
@@ -16,4 +17,7 @@ export class CourseType {
 
   @Field(() => Int)
   readonly course_credit?: number
+
+  @Field(() => [ReviewType], { nullable: true })
+  reviews?: ReviewType[]
 }

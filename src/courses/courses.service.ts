@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common'
 import { RESTDataSource } from 'apollo-datasource-rest'
-import { CourseType } from './courses.dto'
 
 @Injectable()
 export class CourseAPI extends RESTDataSource {
@@ -9,7 +8,7 @@ export class CourseAPI extends RESTDataSource {
     this.baseURL = process.env.COURSE_HOST
   }
 
-  reducer(response): CourseType {
+  reducer(response) {
     return {
       course_id: response.courseId,
       faculty_name: response.facultyName,
