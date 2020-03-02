@@ -6,7 +6,7 @@ import { CourseType } from './courses.dto'
 export class CourseAPI extends RESTDataSource {
   constructor() {
     super()
-    this.baseURL = 'http://localhost:8080'
+    this.baseURL = process.env.COURSE_HOST
   }
 
   reducer(response): CourseType {

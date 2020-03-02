@@ -35,3 +35,4 @@ lerna-debug.log*
 
 generate.d.ts
 generate.gql
+.env

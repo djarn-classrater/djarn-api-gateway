@@ -5,7 +5,7 @@ import { RESTDataSource } from 'apollo-datasource-rest'
 export class ReviewsService extends RESTDataSource {
   constructor() {
     super()
-    this.baseURL = 'http://localhost:3001/'
+    this.baseURL = process.env.REVIEW_HOST
   }
 
   async getReviews() {
