@@ -10,12 +10,12 @@ export class ReviewsResolver {
   @Query(() => [ReviewType])
   async reviews(
     @Args({ 
-      name: 'course_id', 
+      name: 'courseId', 
       type: () => String, 
       nullable: true
     }) courseId: string,
     @Args({ 
-      name: 'student_id', 
+      name: 'studentId', 
       type: () => String, 
       nullable: true
     }) studentId: string,
