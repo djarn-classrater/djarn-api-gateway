@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { RESTDataSource } from 'apollo-datasource-rest'
 import { ReviewType } from './reviews.dto'
-import { ReviewInput } from './reviews.input'
+import { ReviewInput, UpdateReviewArgs } from './reviews.input'
 import _ from 'lodash'
 
 @Injectable()
@@ -20,7 +20,15 @@ export class ReviewsAPI extends RESTDataSource {
     return this.get('reviews', this.clean(filter))
   }
 
+  async getReview(id): Promise<ReviewType> {
+    return this.get(`reviews/${id}`)
+  }
+
   async createReview(review: ReviewInput): Promise<ReviewType> {
     return this.post('reviews', { ...review })
+  }
+
+  async updateReview({ id, review }: UpdateReviewArgs): Promise<void> {
+    return this.patch(`reviews/${id}`, { ...review })
   }
 }
