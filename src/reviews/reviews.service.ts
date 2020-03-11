@@ -17,4 +17,8 @@ export class ReviewsAPI extends RESTDataSource {
   async getReviews(filter) {
     return this.get('reviews', this.clean(filter))
   }
+
+  async createReview(review) {
+    return this.post('reviews', { ...review })
+  }
 }

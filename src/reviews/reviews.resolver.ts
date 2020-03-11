@@ -1,7 +1,8 @@
-import { Resolver, Query, Context, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Context, Args } from '@nestjs/graphql';
 import { Injectable } from '@nestjs/common'
 import { DataSources } from '../app.module'
 import { ReviewType } from './reviews.dto'
+import { ReviewInput } from './reviews.input'
 
 @Injectable()
 @Resolver('Reviews')
@@ -25,5 +26,16 @@ export class ReviewsResolver {
       courseId, 
       studentId
     })
+  }
+
+  @Mutation(() => ReviewType)
+  async createReview(
+    @Args({
+      name: 'review',
+      type: () => ReviewInput,
+    }) review: ReviewInput,
+    @Context('dataSources') { reviewsAPI }: DataSources,
+  ): Promise<ReviewType[]> {
+    return reviewsAPI.createReview(review)
   }
 }
