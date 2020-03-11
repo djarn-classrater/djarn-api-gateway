@@ -4,19 +4,19 @@ import { ReviewType } from '../reviews/reviews.dto'
 @ObjectType()
 export class CourseType {
   @Field()
-  readonly course_id?: string
+  readonly courseId?: string
 
   @Field()
-  readonly faculty_name?: string
+  readonly facultyName?: string
 
   @Field()
-  readonly course_name?: string
+  readonly courseName?: string
 
   @Field()
-  readonly course_description?: string
+  readonly courseDescription?: string
 
   @Field(() => Int)
-  readonly course_credit?: number
+  readonly courseCredit?: number
 
   @Field(() => [ReviewType], { nullable: true })
   reviews?: ReviewType[]

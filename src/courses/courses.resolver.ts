@@ -16,10 +16,10 @@ export class CoursesResolver {
 
   @Query(() => CourseType)
   async course(
-    @Args('course_id') course_id: string,
+    @Args('courseId') courseId: string,
     @Context('dataSources') { coursesAPI }
   ): Promise<CourseType> {
-    return coursesAPI.getCourse(course_id)
+    return coursesAPI.getCourse(courseId)
   }
 
   @ResolveProperty('reviews', () => [ReviewType])
@@ -27,7 +27,7 @@ export class CoursesResolver {
     @Parent() course: CourseType,
     @Context('dataSources') { reviewsAPI }
   ) {
-    const { course_id } = course
-    return reviewsAPI.getReviews({ course_id })
+    const { courseId } = course
+    return reviewsAPI.getReviews({ courseId })
   }
 }

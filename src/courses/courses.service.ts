@@ -10,21 +10,21 @@ export class CourseAPI extends RESTDataSource {
 
   reducer(response) {
     return {
-      course_id: response.courseId,
-      faculty_name: response.facultyName,
-      course_name: response.courseNameThai,
-      course_description: response.courseDescriptionThai,
-      course_credit: response.courseCredit,
+      courseId: response.courseId,
+      facultyName: response.facultyName,
+      courseName: response.courseNameThai,
+      courseDescription: response.courseDescriptionThai,
+      courseCredit: response.courseCredit,
     }
   }
 
-  async getCourse(course_id) {
-    const response = await this.get(`course/${course_id}`)
+  async getCourse(courseId: string) {
+    const response = await this.get(`course/${courseId}`)
     if (!response.courseName) {
-      throw Error(`Don't have any course at ${course_id}`)
+      throw Error(`Don't have any course at ${courseId}`)
     }
     return this.reducer({
-      courseId: course_id,
+      courseId,
       ...response,
     })
   }

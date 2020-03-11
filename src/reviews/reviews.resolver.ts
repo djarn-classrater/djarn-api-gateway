@@ -12,17 +12,17 @@ export class ReviewsResolver {
       name: 'course_id', 
       type: () => String, 
       nullable: true
-    }) course_id: string,
+    }) courseId: string,
     @Args({ 
       name: 'student_id', 
       type: () => String, 
       nullable: true
-    }) student_id: string,
+    }) studentId: string,
     @Context('dataSources') { reviewsAPI }
   ): Promise<ReviewType[]> {
     return reviewsAPI.getReviews({
-      course_id, 
-      student_id
+      courseId, 
+      studentId
     })
   }
 }

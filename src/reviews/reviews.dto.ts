@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID } from 'type-graphql'
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator'
+import { IsString, IsNotEmpty } from 'class-validator'
 
 @ObjectType()
 export class ReviewType {
@@ -9,12 +9,12 @@ export class ReviewType {
   @Field()
   @IsString()
   @IsNotEmpty()
-  readonly student_id: string
+  readonly studentId: string
 
   @Field()
   @IsString()
   @IsNotEmpty()
-  readonly course_id: string
+  readonly courseId: string
 
   @Field()
   @IsString()
