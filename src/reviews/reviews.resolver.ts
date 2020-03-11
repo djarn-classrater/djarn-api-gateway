@@ -35,7 +35,7 @@ export class ReviewsResolver {
       type: () => ReviewInput,
     }) review: ReviewInput,
     @Context('dataSources') { reviewsAPI }: DataSources,
-  ): Promise<ReviewType[]> {
+  ): Promise<ReviewType> {
     return reviewsAPI.createReview(review)
   }
 }
