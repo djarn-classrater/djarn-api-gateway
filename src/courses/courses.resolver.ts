@@ -25,10 +25,9 @@ export class CoursesResolver {
 
   @ResolveProperty('reviews', () => [ReviewType])
   async reviews(
-    @Parent() course: CourseType,
+    @Parent() { courseId }: CourseType,
     @Context('dataSources') { reviewsAPI }: DataSources
   ) {
-    const { courseId } = course
     return reviewsAPI.getReviews({ courseId })
   }
 }
