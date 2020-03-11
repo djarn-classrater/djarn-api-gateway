@@ -22,6 +22,7 @@ export type DataSources = {
         reviewsAPI: new ReviewsAPI,
         coursesAPI: new CourseAPI,
       }),
+      tracing: true,
       autoSchemaFile: 'generate.gql',
       include: [
         PingModule,
