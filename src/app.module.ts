@@ -5,16 +5,21 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PingModule } from './ping/ping.module';
 import { ReviewsModule } from './reviews/reviews.module';
-import { ReviewsService } from './reviews/reviews.service'
+import { ReviewsAPI } from './reviews/reviews.service'
 import { CoursesModule} from './courses/courses.module'
 import { CourseAPI } from './courses/courses.service'
+
+export type DataSources = {
+  reviewsAPI: ReviewsAPI
+  coursesAPI: CourseAPI
+}
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     GraphQLModule.forRoot({
-      dataSources: () => ({
-        reviewsAPI: new ReviewsService,
+      dataSources: (): DataSources => ({
+        reviewsAPI: new ReviewsAPI,
         coursesAPI: new CourseAPI,
       }),
       autoSchemaFile: 'generate.gql',

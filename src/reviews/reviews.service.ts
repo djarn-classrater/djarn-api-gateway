@@ -3,7 +3,7 @@ import { RESTDataSource } from 'apollo-datasource-rest'
 import _ from 'lodash'
 
 @Injectable()
-export class ReviewsService extends RESTDataSource {
+export class ReviewsAPI extends RESTDataSource {
   constructor() {
     super()
     this.baseURL = process.env.REVIEW_HOST

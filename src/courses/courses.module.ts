@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 import { CourseAPI } from './courses.service'
 import { CoursesResolver } from './courses.resolver'
-import { ReviewsService } from '../reviews/reviews.service'
+import { ReviewsAPI } from '../reviews/reviews.service'
 
 @Module({
-  providers: [CourseAPI, CoursesResolver, ReviewsService]
+  providers: [CourseAPI, CoursesResolver, ReviewsAPI]
 })
 export class CoursesModule {}

@@ -7,6 +7,7 @@ import {
   Context 
 } from '@nestjs/graphql'
 import { Injectable } from '@nestjs/common'
+import { DataSources } from 'src/app.module'
 import { CourseType } from './courses.dto'
 import { ReviewType } from '../reviews/reviews.dto'
 
@@ -25,7 +26,7 @@ export class CoursesResolver {
   @ResolveProperty('reviews', () => [ReviewType])
   async reviews(
     @Parent() course: CourseType,
-    @Context('dataSources') { reviewsAPI }
+    @Context('dataSources') { reviewsAPI }: DataSources
   ) {
     const { courseId } = course
     return reviewsAPI.getReviews({ courseId })
