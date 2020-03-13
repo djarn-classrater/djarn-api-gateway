@@ -1,11 +1,12 @@
-import { Resolver, Query, Mutation, Context, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Context, Args, ResolveProperty, Parent } from '@nestjs/graphql';
 import { Injectable } from '@nestjs/common'
 import { DataSources } from '../app.module'
 import { ReviewType } from './reviews.dto'
 import { ReviewInput, UpdateReviewArgs } from './reviews.input'
+import { CourseType } from 'src/courses/courses.dto';
 
 @Injectable()
-@Resolver('Reviews')
+@Resolver(() => ReviewType)
 export class ReviewsResolver {
 
   @Query(() => [ReviewType])
@@ -26,6 +27,14 @@ export class ReviewsResolver {
       courseId, 
       studentId
     })
+  }
+
+  @ResolveProperty('course', () => [CourseType])
+  async course(
+    @Parent() { courseId }: ReviewType,
+    @Context('dataSources') { coursesAPI }: DataSources,
+  ) {
+    return coursesAPI.getCourse(courseId)
   }
 
   @Mutation(() => ReviewType)
