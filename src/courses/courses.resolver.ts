@@ -1,10 +1,10 @@
-import { 
-  Resolver, 
+import {
+  Resolver,
   ResolveProperty,
-  Query, 
+  Query,
   Parent,
-  Args, 
-  Context 
+  Args,
+  Context,
 } from '@nestjs/graphql'
 import { Injectable } from '@nestjs/common'
 import { DataSources } from 'src/app.module'
@@ -14,11 +14,10 @@ import { ReviewType } from '../reviews/reviews.dto'
 @Injectable()
 @Resolver(() => CourseType)
 export class CoursesResolver {
-
   @Query(() => CourseType)
   async course(
     @Args('courseId') courseId: string,
-    @Context('dataSources') { coursesAPI }
+    @Context('dataSources') { coursesAPI },
   ): Promise<CourseType> {
     return coursesAPI.getCourse(courseId)
   }
@@ -26,7 +25,7 @@ export class CoursesResolver {
   @ResolveProperty('reviews', () => [ReviewType])
   async reviews(
     @Parent() { courseId }: CourseType,
-    @Context('dataSources') { reviewsAPI }: DataSources
+    @Context('dataSources') { reviewsAPI }: DataSources,
   ) {
     return reviewsAPI.getReviews({ courseId })
   }

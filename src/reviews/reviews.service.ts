@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common'
 import { RESTDataSource } from 'apollo-datasource-rest'
 import { ReviewType } from './reviews.dto'
 import { ReviewInput, UpdateReviewArgs } from './reviews.input'

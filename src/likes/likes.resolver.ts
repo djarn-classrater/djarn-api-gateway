@@ -7,24 +7,25 @@ import { LikeInput } from './likes.input'
 @Injectable()
 @Resolver(() => LikeType)
 export class LikeResolver {
-
   @Query(() => [LikeType])
   async likes(
     @Args({
       name: 'studentId',
       type: () => String,
-      nullable: true
-    }) studentId: string,
+      nullable: true,
+    })
+    studentId: string,
     @Args({
       name: 'reviewId',
       type: () => String,
-      nullable: true
-    }) reviewId: string,
-    @Context('dataSources') { likesAPI }: DataSources
+      nullable: true,
+    })
+    reviewId: string,
+    @Context('dataSources') { likesAPI }: DataSources,
   ): Promise<LikeType[]> {
     return likesAPI.getlikes({
       studentId,
-      reviewId
+      reviewId,
     })
   }
 
@@ -33,7 +34,8 @@ export class LikeResolver {
     @Args({
       name: 'likeInput',
       type: () => LikeInput,
-    }) like: LikeInput,
+    })
+    like: LikeInput,
     @Context('dataSources') { likesAPI }: DataSources,
   ): Promise<LikeType> {
     return likesAPI.createLike(like)

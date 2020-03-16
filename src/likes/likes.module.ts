@@ -3,6 +3,6 @@ import { LikesAPI } from './likes.service'
 import { LikeResolver } from './likes.resolver'
 
 @Module({
-  providers: [LikesAPI, LikeResolver]
+  providers: [LikesAPI, LikeResolver],
 })
-export class LikesModule { }
+export class LikesModule {}

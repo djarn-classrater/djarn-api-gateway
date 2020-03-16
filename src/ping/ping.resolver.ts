@@ -1,4 +1,4 @@
-import { Resolver, Query } from '@nestjs/graphql';
+import { Resolver, Query } from '@nestjs/graphql'
 
 @Resolver('Ping')
 export class PingResolver {

@@ -1,18 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ReviewsResolver } from './reviews.resolver';
+import { Test, TestingModule } from '@nestjs/testing'
+import { ReviewsResolver } from './reviews.resolver'
 
 describe('ReviewsResolver', () => {
-  let resolver: ReviewsResolver;
+  let resolver: ReviewsResolver
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [ReviewsResolver],
-    }).compile();
+    }).compile()
 
-    resolver = module.get<ReviewsResolver>(ReviewsResolver);
-  });
+    resolver = module.get<ReviewsResolver>(ReviewsResolver)
+  })
 
   it('should be defined', () => {
-    expect(resolver).toBeDefined();
-  });
-});
+    expect(resolver).toBeDefined()
+  })
+})

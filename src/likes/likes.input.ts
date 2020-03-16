@@ -11,5 +11,5 @@ export class LikeInput implements Partial<LikeType> {
 
   @Field()
   @IsNotEmpty()
-  readonly reviewId : number
+  readonly reviewId: number
 }
