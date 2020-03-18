@@ -12,6 +12,8 @@ import { DataSources } from '../app.module'
 import { ReviewType } from './reviews.dto'
 import { ReviewInput, UpdateReviewArgs } from './reviews.input'
 import { CourseType } from 'src/courses/courses.dto'
+import { UserType } from 'src/users/users.dto'
+import { LikeType } from 'src/likes/likes.dto'
 
 @Injectable()
 @Resolver(() => ReviewType)
@@ -44,6 +46,22 @@ export class ReviewsResolver {
     @Context('dataSources') { coursesAPI }: DataSources,
   ) {
     return coursesAPI.getCourse(courseId)
+  }
+
+  @ResolveProperty('user', () => [UserType])
+  async couser(
+    @Parent() { studentId }: ReviewType,
+    @Context('dataSources') { usersAPI }: DataSources,
+  ) {
+    return usersAPI.getUsers(studentId)
+  }
+
+  @ResolveProperty('like', () => [LikeType])
+  async like(
+    @Parent() { studentId }: ReviewType,
+    @Context('dataSources') { likesAPI }: DataSources,
+  ) {
+    return likesAPI.getlikes(studentId)
   }
 
   @Mutation(() => ReviewType)
