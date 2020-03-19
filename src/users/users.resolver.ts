@@ -31,6 +31,6 @@ export class UserRessolver {
     @Parent() { studentId }: UserType,
     @Context('dataSources') { reviewsAPI }: DataSources,
   ) {
-    return reviewsAPI.getReviews(studentId)
+    return reviewsAPI.getReviews({ studentId })
   }
 }

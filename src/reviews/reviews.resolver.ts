@@ -49,11 +49,11 @@ export class ReviewsResolver {
   }
 
   @ResolveProperty('user', () => [UserType])
-  async couser(
+  async user(
     @Parent() { studentId }: ReviewType,
     @Context('dataSources') { usersAPI }: DataSources,
   ) {
-    return usersAPI.getUsers(studentId)
+    return usersAPI.getUsers({ studentId })
   }
 
   @ResolveProperty('like', () => [LikeType])
@@ -61,7 +61,7 @@ export class ReviewsResolver {
     @Parent() { studentId }: ReviewType,
     @Context('dataSources') { likesAPI }: DataSources,
   ) {
-    return likesAPI.getlikes(studentId)
+    return likesAPI.getlikes({ studentId })
   }
 
   @Mutation(() => ReviewType)

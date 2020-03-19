@@ -3,6 +3,7 @@ import { RESTDataSource } from 'apollo-datasource-rest'
 import _ from 'lodash'
 import { RateType } from './rates.dto'
 import { RateInput } from './rates.input'
+import { IFilter, clean } from 'src/utils/clean'
 
 @Injectable()
 export class RatesAPI extends RESTDataSource {
@@ -15,8 +16,8 @@ export class RatesAPI extends RESTDataSource {
     return _.pickBy(obj, _.identity)
   }
 
-  async getRatings(filter): Promise<RateType[]> {
-    return this.get('rates', this.clean(filter))
+  async getRatings(filter?: IFilter): Promise<RateType[]> {
+    return this.get('rates', clean(filter))
   }
 
   async getRating(id): Promise<RateType> {

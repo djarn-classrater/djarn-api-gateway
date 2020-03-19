@@ -1,7 +1,7 @@
 import { RESTDataSource } from 'apollo-datasource-rest'
 import { Injectable } from '@nestjs/common'
-import _ from 'lodash'
 import { UserType } from './users.dto'
+import { clean, IFilter } from '../utils/clean'
 
 @Injectable()
 export class UsersAPI extends RESTDataSource {
@@ -10,12 +10,8 @@ export class UsersAPI extends RESTDataSource {
     this.baseURL = process.env.USER_HOST
   }
 
-  clean(obj) {
-    return _.pickBy(obj, _.identity)
-  }
-
-  async getUsers(filter?): Promise<UserType[]> {
-    return this.get('users', this.clean(filter))
+  async getUsers(filter?: IFilter): Promise<UserType[]> {
+    return this.get('users', clean(filter))
   }
 
   async getUser(id): Promise<UserType> {

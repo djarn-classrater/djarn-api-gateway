@@ -1,8 +1,8 @@
 import { RESTDataSource } from 'apollo-datasource-rest'
 import { Injectable } from '@nestjs/common'
 import { LikeType } from './likes.dto'
-import _ from 'lodash'
 import { LikeInput } from './likes.input'
+import { IFilter, clean } from 'src/utils/clean'
 
 @Injectable()
 export class LikesAPI extends RESTDataSource {
@@ -11,12 +11,8 @@ export class LikesAPI extends RESTDataSource {
     this.baseURL = process.env.LIKE_HOST
   }
 
-  clean(obj) {
-    return _.pickBy(obj, _.identity)
-  }
-
-  async getlikes(filter?): Promise<LikeType[]> {
-    return this.get('likes', this.clean(filter))
+  async getlikes(filter?: IFilter): Promise<LikeType[]> {
+    return this.get('likes', clean(filter))
   }
 
   async getlike(id): Promise<LikeType> {
