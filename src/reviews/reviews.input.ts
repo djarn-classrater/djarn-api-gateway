@@ -1,6 +1,27 @@
 import { ReviewType } from './reviews.dto'
 import { Field, InputType, ID, ArgsType } from 'type-graphql'
-import { IsString, IsNotEmpty, IsNumber } from 'class-validator'
+import { IsString, IsNotEmpty, IsNumber, IsEmpty } from 'class-validator'
+
+@InputType()
+export class CreateReviewInput {
+  @Field()
+  @IsString()
+  @IsEmpty()
+  readonly studentId: string
+
+  @Field()
+  @IsString()
+  @IsNotEmpty()
+  readonly courseId: string
+
+  @Field({ nullable: true })
+  @IsString()
+  readonly context?: string
+
+  @Field()
+  @IsNotEmpty()
+  readonly rating: number
+}
 
 @InputType()
 export class ReviewInput implements Partial<ReviewType> {

@@ -20,6 +20,7 @@ export class ReviewsAPI extends RESTDataSource {
   }
 
   async createReview(review: ReviewInput): Promise<ReviewType> {
+    console.log(review)
     return this.post('reviews', { ...review })
   }
 

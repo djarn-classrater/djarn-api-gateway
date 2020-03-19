@@ -10,7 +10,11 @@ import {
 import { Injectable } from '@nestjs/common'
 import { DataSources } from '../app.module'
 import { ReviewType } from './reviews.dto'
-import { ReviewInput, UpdateReviewArgs } from './reviews.input'
+import {
+  UpdateReviewArgs,
+  CreateReviewInput,
+  ReviewInput,
+} from './reviews.input'
 import { CourseType } from 'src/courses/courses.dto'
 import { UserType } from 'src/users/users.dto'
 import { LikeType } from 'src/likes/likes.dto'
@@ -78,12 +82,20 @@ export class ReviewsResolver {
   async createReview(
     @Args({
       name: 'review',
-      type: () => ReviewInput,
+      type: () => CreateReviewInput,
     })
-    review: ReviewInput,
+    args: CreateReviewInput,
     @Context('dataSources') { reviewsAPI }: DataSources,
-  ): Promise<ReviewType> {
-    return reviewsAPI.createReview(review)
+    @Context('dataSources') { ratesAPI }: DataSources,
+  ) {
+    const { rating, ...reviewArgs } = args
+    const { context, ...ratingArgs } = args
+    const newReview = await reviewsAPI.createReview(reviewArgs)
+    const newRate = await ratesAPI.createRating(ratingArgs)
+    return {
+      ...newReview,
+      rate: newRate.rating,
+    }
   }
 
   @Mutation(() => ReviewType)
