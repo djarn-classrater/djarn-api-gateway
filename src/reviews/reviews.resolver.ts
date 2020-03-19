@@ -14,6 +14,7 @@ import { ReviewInput, UpdateReviewArgs } from './reviews.input'
 import { CourseType } from 'src/courses/courses.dto'
 import { UserType } from 'src/users/users.dto'
 import { LikeType } from 'src/likes/likes.dto'
+import { Int } from 'type-graphql'
 
 @Injectable()
 @Resolver(() => ReviewType)
@@ -62,6 +63,15 @@ export class ReviewsResolver {
     @Context('dataSources') { likesAPI }: DataSources,
   ) {
     return likesAPI.getlikes({ studentId })
+  }
+
+  @ResolveProperty('rate', () => Int, { nullable: true })
+  async rate(
+    @Parent() { studentId, courseId }: ReviewType,
+    @Context('dataSources') { ratesAPI }: DataSources,
+  ): Promise<number> {
+    const response = await ratesAPI.getRatings({ studentId, courseId })
+    return response[0] ? response[0].rating : null
   }
 
   @Mutation(() => ReviewType)
