@@ -10,6 +10,7 @@ import { Injectable } from '@nestjs/common'
 import { DataSources } from 'src/app.module'
 import { CourseType } from './courses.dto'
 import { ReviewType } from '../reviews/reviews.dto'
+import { RateType } from 'src/rates/rates.dto'
 
 @Injectable()
 @Resolver(() => CourseType)
@@ -28,5 +29,13 @@ export class CoursesResolver {
     @Context('dataSources') { reviewsAPI }: DataSources,
   ) {
     return reviewsAPI.getReviews({ courseId })
+  }
+
+  @ResolveProperty('rating', () => [RateType])
+  async ratings(
+    @Parent() { courseId }: CourseType,
+    @Context('dataSources') { ratesAPI }: DataSources,
+  ) {
+    return ratesAPI.getRatings({ courseId })
   }
 }

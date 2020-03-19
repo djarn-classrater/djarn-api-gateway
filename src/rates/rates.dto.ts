@@ -2,7 +2,7 @@ import { ObjectType, Field, ID } from 'type-graphql'
 import { IsString, IsNotEmpty } from 'class-validator'
 
 @ObjectType()
-export class RatingType {
+export class RateType {
   @Field(() => ID)
   readonly id: number
 

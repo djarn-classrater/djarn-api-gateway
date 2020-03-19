@@ -12,14 +12,14 @@ import { LikesAPI } from './likes/likes.service'
 import { LikesModule } from './likes/likes.module'
 import { UsersAPI } from './users/users.service'
 import { UsersModule } from './users/users.module'
-import { RatingAPI } from './rating/rating.service'
-import { RatingsModule } from './rating/rating.module'
+import { RatesAPI } from './rates/rates.service'
+import { RatesModule } from './rates/rates.module'
 
 export type DataSources = {
   reviewsAPI: ReviewsAPI
   coursesAPI: CourseAPI
   likesAPI: LikesAPI
-  ratingsAPI: RatingAPI
+  ratesAPI: RatesAPI
   usersAPI: UsersAPI
 }
 
@@ -31,7 +31,7 @@ export type DataSources = {
         reviewsAPI: new ReviewsAPI(),
         coursesAPI: new CourseAPI(),
         likesAPI: new LikesAPI(),
-        ratingsAPI: new RatingAPI(),
+        ratesAPI: new RatesAPI(),
         usersAPI: new UsersAPI(),
       }),
       tracing: true,
@@ -41,7 +41,7 @@ export type DataSources = {
         ReviewsModule,
         CoursesModule,
         LikesModule,
-        RatingsModule,
+        RatesModule,
         UsersModule,
       ],
     }),
@@ -49,7 +49,7 @@ export type DataSources = {
     ReviewsModule,
     CoursesModule,
     LikesModule,
-    RatingsModule,
+    RatesModule,
     UsersModule,
   ],
   controllers: [AppController],

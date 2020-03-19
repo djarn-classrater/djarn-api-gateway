@@ -32,7 +32,7 @@ export class LikeResolver {
   @Mutation(() => LikeType)
   async createLike(
     @Args({
-      name: 'likeInput',
+      name: 'like',
       type: () => LikeInput,
     })
     like: LikeInput,
