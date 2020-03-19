@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { RESTDataSource } from 'apollo-datasource-rest'
-import _ from 'lodash'
-import { RateType } from './rates.dto'
+import { RateType, RateSummary } from './rates.dto'
 import { RateInput } from './rates.input'
 import { IFilter, clean } from 'src/utils/clean'
 
@@ -12,16 +11,16 @@ export class RatesAPI extends RESTDataSource {
     this.baseURL = process.env.RATE_HOST
   }
 
-  clean(obj) {
-    return _.pickBy(obj, _.identity)
-  }
-
   async getRatings(filter?: IFilter): Promise<RateType[]> {
     return this.get('rates', clean(filter))
   }
 
   async getRating(id): Promise<RateType> {
     return this.get(`rates/${id}`)
+  }
+
+  async getRatingsummary(courseId: string): Promise<RateSummary> {
+    return this.get(`rates/${courseId}/summary`)
   }
 
   async createRating(rates: RateInput): Promise<RateType> {
