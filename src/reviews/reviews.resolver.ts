@@ -4,7 +4,7 @@ import {
   Mutation,
   Context,
   Args,
-  ResolveProperty,
+  ResolveField,
   Parent,
   Int,
 } from '@nestjs/graphql'
@@ -45,7 +45,7 @@ export class ReviewsResolver {
     })
   }
 
-  @ResolveProperty('course', () => [CourseType])
+  @ResolveField('course', () => [CourseType])
   async course(
     @Parent() { courseId }: ReviewType,
     @Context('dataSources') { coursesAPI }: DataSources,
@@ -53,7 +53,7 @@ export class ReviewsResolver {
     return coursesAPI.getCourse(courseId)
   }
 
-  @ResolveProperty('user', () => [UserType])
+  @ResolveField('user', () => [UserType])
   async user(
     @Parent() { studentId }: ReviewType,
     @Context('dataSources') { usersAPI }: DataSources,
@@ -61,7 +61,7 @@ export class ReviewsResolver {
     return usersAPI.getUsers({ studentId })
   }
 
-  @ResolveProperty('like', () => [LikeType])
+  @ResolveField('like', () => [LikeType])
   async like(
     @Parent() { studentId }: ReviewType,
     @Context('dataSources') { likesAPI }: DataSources,
@@ -69,7 +69,7 @@ export class ReviewsResolver {
     return likesAPI.getlikes({ studentId })
   }
 
-  @ResolveProperty('rate', () => Int, { nullable: true })
+  @ResolveField('rate', () => Int, { nullable: true })
   async rate(
     @Parent() { studentId, courseId }: ReviewType,
     @Context('dataSources') { ratesAPI }: DataSources,

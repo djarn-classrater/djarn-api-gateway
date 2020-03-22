@@ -1,6 +1,6 @@
 import {
   Resolver,
-  ResolveProperty,
+  ResolveField,
   Query,
   Parent,
   Args,
@@ -23,7 +23,7 @@ export class CoursesResolver {
     return coursesAPI.getCourse(courseId)
   }
 
-  @ResolveProperty('reviews', () => [ReviewType])
+  @ResolveField('reviews', () => [ReviewType])
   async reviews(
     @Parent() { courseId }: CourseType,
     @Context('dataSources') { reviewsAPI }: DataSources,
@@ -31,7 +31,7 @@ export class CoursesResolver {
     return reviewsAPI.getReviews({ courseId })
   }
 
-  @ResolveProperty('rating', () => [RateType])
+  @ResolveField('rating', () => [RateType])
   async ratings(
     @Parent() { courseId }: CourseType,
     @Context('dataSources') { ratesAPI }: DataSources,
@@ -39,7 +39,7 @@ export class CoursesResolver {
     return ratesAPI.getRatings({ courseId })
   }
 
-  @ResolveProperty('ratingSummary', () => RateSummary)
+  @ResolveField('ratingSummary', () => RateSummary)
   async ratingSummary(
     @Parent() { courseId }: CourseType,
     @Context('dataSources') { ratesAPI }: DataSources,

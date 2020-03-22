@@ -4,7 +4,7 @@ import {
   Query,
   Args,
   Context,
-  ResolveProperty,
+  ResolveField,
   Parent,
 } from '@nestjs/graphql'
 import { DataSources } from '../app.module'
@@ -26,7 +26,7 @@ export class UserRessolver {
   ): Promise<UserType[]> {
     return usersAPI.getUsers({ studentId })
   }
-  @ResolveProperty('review', () => [ReviewType])
+  @ResolveField('review', () => [ReviewType])
   async review(
     @Parent() { studentId }: UserType,
     @Context('dataSources') { reviewsAPI }: DataSources,

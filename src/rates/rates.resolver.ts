@@ -3,7 +3,7 @@ import {
   Query,
   Context,
   Args,
-  ResolveProperty,
+  ResolveField,
   Parent,
   Mutation,
 } from '@nestjs/graphql'
@@ -61,7 +61,7 @@ export class RatesResolver {
     return ratesAPI.getRating(rateArgs.id)
   }
 
-  @ResolveProperty('course', () => [CourseType])
+  @ResolveField('course', () => [CourseType])
   async course(
     @Parent() { courseId }: RateType,
     @Context('dataSources') { coursesAPI }: DataSources,
