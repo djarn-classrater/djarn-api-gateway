@@ -1,4 +1,4 @@
-import { Field, InputType, ArgsType, ID } from 'type-graphql'
+import { Field, InputType, ArgsType, ID } from '@nestjs/graphql'
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator'
 import { RateType } from './rates.dto'
 

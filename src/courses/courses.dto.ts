@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from 'type-graphql'
+import { ObjectType, Field, Int } from '@nestjs/graphql'
 import { ReviewType } from '../reviews/reviews.dto'
 
 @ObjectType()

@@ -1,5 +1,5 @@
 import { ReviewType } from './reviews.dto'
-import { Field, InputType, ID, ArgsType } from 'type-graphql'
+import { Field, InputType, ID, ArgsType } from '@nestjs/graphql'
 import { IsString, IsNotEmpty, IsNumber, IsEmpty } from 'class-validator'
 
 @InputType()

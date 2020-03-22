@@ -1,5 +1,5 @@
 import { LikeType } from './likes.dto'
-import { InputType, Field } from 'type-graphql'
+import { InputType, Field } from '@nestjs/graphql'
 import { IsString, IsNotEmpty } from 'class-validator'
 
 @InputType()

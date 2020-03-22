@@ -6,6 +6,7 @@ import {
   Args,
   ResolveProperty,
   Parent,
+  Int,
 } from '@nestjs/graphql'
 import { Injectable } from '@nestjs/common'
 import { DataSources } from '../app.module'
@@ -18,7 +19,6 @@ import {
 import { CourseType } from 'src/courses/courses.dto'
 import { UserType } from 'src/users/users.dto'
 import { LikeType } from 'src/likes/likes.dto'
-import { Int } from 'type-graphql'
 
 @Injectable()
 @Resolver(() => ReviewType)
