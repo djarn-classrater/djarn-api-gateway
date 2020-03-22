@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { Module, HttpService } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule, GqlModuleOptions } from '@nestjs/graphql'
 import { AppController } from './app.controller'
@@ -14,6 +14,8 @@ import { UsersAPI } from './users/users.service'
 import { UsersModule } from './users/users.module'
 import { RatesAPI } from './rates/rates.service'
 import { RatesModule } from './rates/rates.module'
+import { CMURegModule } from './cmu-reg/cmu-reg.module'
+import { CMURegService } from './cmu-reg/cmu-reg.service'
 
 import { ApolloServerExpressConfig } from 'apollo-server-express'
 
@@ -30,7 +32,9 @@ type ExpressContextConfig = Pick<ApolloServerExpressConfig, 'context'>
 type ExpressContextFunction = Extract<ExpressContextConfig['context'], Function>
 type ExpressContext = Parameters<ExpressContextFunction>[0]
 
-export interface TContext extends DataSources, ExpressContext {}
+export interface TContext extends DataSources, ExpressContext {
+  cmuRegService: CMURegService
+}
 
 interface Options
   extends Omit<GqlModuleOptions, 'context'>,
@@ -47,6 +51,10 @@ interface Options
         ratesAPI: new RatesAPI(),
         usersAPI: new UsersAPI(),
       }),
+      context: ({ req }) => ({
+        req,
+        cmuRegService: new CMURegService(new HttpService()),
+      }),
       tracing: true,
       autoSchemaFile: 'generate.gql',
       include: [
@@ -56,6 +64,7 @@ interface Options
         LikesModule,
         RatesModule,
         UsersModule,
+        CMURegModule,
       ],
     }),
     PingModule,
@@ -64,6 +73,7 @@ interface Options
     LikesModule,
     RatesModule,
     UsersModule,
+    CMURegModule,
   ],
   controllers: [AppController],
   providers: [AppService],
