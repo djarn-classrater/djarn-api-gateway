@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { GraphQLModule } from '@nestjs/graphql'
+import { GraphQLModule, GqlModuleOptions } from '@nestjs/graphql'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { PingModule } from './ping/ping.module'
@@ -15,6 +15,8 @@ import { UsersModule } from './users/users.module'
 import { RatesAPI } from './rates/rates.service'
 import { RatesModule } from './rates/rates.module'
 
+import { ApolloServerExpressConfig } from 'apollo-server-express'
+
 export type DataSources = {
   reviewsAPI: ReviewsAPI
   coursesAPI: CourseAPI
@@ -23,10 +25,21 @@ export type DataSources = {
   usersAPI: UsersAPI
 }
 
+// Extract ExpressContext interface
+type ExpressContextConfig = Pick<ApolloServerExpressConfig, 'context'>
+type ExpressContextFunction = Extract<ExpressContextConfig['context'], Function>
+type ExpressContext = Parameters<ExpressContextFunction>[0]
+
+export interface TContext extends DataSources, ExpressContext {}
+
+interface Options
+  extends Omit<GqlModuleOptions, 'context'>,
+    ExpressContextConfig {}
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    GraphQLModule.forRoot({
+    GraphQLModule.forRoot(<Options>{
       dataSources: (): DataSources => ({
         reviewsAPI: new ReviewsAPI(),
         coursesAPI: new CourseAPI(),
