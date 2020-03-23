@@ -1,14 +1,11 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql'
-import { IsString, IsNotEmpty } from 'class-validator'
 
 @ObjectType()
 export class UserType {
   @Field(() => ID)
-  readonly id: number
+  readonly id?: string
 
   @Field()
-  @IsString()
-  @IsNotEmpty()
   readonly studentId: string
 
   @Field()
@@ -16,4 +13,16 @@ export class UserType {
 
   @Field()
   readonly firstNameEN: string
+
+  @Field()
+  readonly lastNameTH: string
+
+  @Field()
+  readonly lastNameEN: string
+
+  @Field()
+  readonly organizationNameTH: string
+
+  @Field()
+  readonly organizationNameEN: string
 }
