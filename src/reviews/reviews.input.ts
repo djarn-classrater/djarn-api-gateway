@@ -1,30 +1,8 @@
-import { ReviewType } from './reviews.dto'
 import { Field, InputType, ID, ArgsType } from '@nestjs/graphql'
-import { IsString, IsNotEmpty, IsNumber, IsEmpty } from 'class-validator'
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator'
 
 @InputType()
-export class CreateReviewInput {
-  @Field()
-  @IsString()
-  @IsEmpty()
-  readonly studentId: string
-
-  @Field()
-  @IsString()
-  @IsNotEmpty()
-  readonly courseId: string
-
-  @Field({ nullable: true })
-  @IsString()
-  readonly context?: string
-
-  @Field()
-  @IsNotEmpty()
-  readonly rating: number
-}
-
-@InputType()
-export class ReviewInput implements Partial<ReviewType> {
+export class ReviewInput {
   @Field()
   @IsString()
   @IsNotEmpty()
@@ -41,7 +19,7 @@ export class ReviewInput implements Partial<ReviewType> {
 }
 
 @InputType()
-class UpdateReviewInput implements Partial<ReviewType> {
+class UpdateReviewInput {
   @Field()
   @IsString()
   readonly context?: string

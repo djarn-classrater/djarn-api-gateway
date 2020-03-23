@@ -11,14 +11,12 @@ import {
 import { Injectable } from '@nestjs/common'
 import { DataSources } from '../app.module'
 import { ReviewType } from './reviews.dto'
-import {
-  UpdateReviewArgs,
-  CreateReviewInput,
-  ReviewInput,
-} from './reviews.input'
+import { UpdateReviewArgs } from './reviews.input'
 import { CourseType } from 'src/courses/courses.dto'
 import { UserType } from 'src/users/users.dto'
 import { LikeType } from 'src/likes/likes.dto'
+import { User } from 'src/cmu-reg/cmu-reg.decorator'
+import { StudentInfo } from 'src/cmu-reg/cmu-reg.dto'
 
 @Injectable()
 @Resolver(() => ReviewType)
@@ -78,20 +76,41 @@ export class ReviewsResolver {
     return response[0] ? response[0].rating : null
   }
 
+  /**
+   * Create review and rating course
+   * @remarks this mutation will post to review and rate database
+   */
   @Mutation(() => ReviewType)
   async createReview(
     @Args({
-      name: 'review',
-      type: () => CreateReviewInput,
+      name: 'courseId',
+      type: () => String,
     })
-    args: CreateReviewInput,
-    @Context('dataSources') { reviewsAPI }: DataSources,
-    @Context('dataSources') { ratesAPI }: DataSources,
+    courseId: string,
+    @Args({
+      name: 'context',
+      type: () => String,
+      nullable: true,
+    })
+    context: string,
+    @Args({
+      name: 'rate',
+      type: () => Int,
+    })
+    rating: number,
+    @User() { studentId }: StudentInfo,
+    @Context('dataSources') { reviewsAPI, ratesAPI }: DataSources,
   ) {
-    const { rating, ...reviewArgs } = args
-    const { context, ...ratingArgs } = args
-    const newReview = await reviewsAPI.createReview(reviewArgs)
-    const newRate = await ratesAPI.createRating(ratingArgs)
+    const newReview = await reviewsAPI.createReview({
+      studentId,
+      courseId,
+      context,
+    })
+    const newRate = await ratesAPI.createRating({
+      studentId,
+      courseId,
+      rating,
+    })
     return {
       ...newReview,
       rate: newRate.rating,

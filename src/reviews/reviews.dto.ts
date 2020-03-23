@@ -21,7 +21,7 @@ export class ReviewType {
   @IsString()
   readonly course: CourseType
 
-  @Field()
+  @Field({ nullable: true })
   @IsString()
   readonly context: string
 
