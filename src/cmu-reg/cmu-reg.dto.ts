@@ -1,28 +1,8 @@
-import { ObjectType, Field } from '@nestjs/graphql'
+import { ObjectType } from '@nestjs/graphql'
+import { UserType } from '../users/users.dto'
 
 @ObjectType()
-export class StudentInfo {
-  @Field()
-  readonly studentId: string
-
-  @Field()
-  readonly firstNameTH: string
-
-  @Field()
-  readonly firstNameEN: string
-
-  @Field()
-  readonly lastNameTH: string
-
-  @Field()
-  readonly lastNameEN: string
-
-  @Field()
-  readonly organizationTH: string
-
-  @Field()
-  readonly organizationEN: string
-}
+export class StudentInfo extends UserType {}
 
 export interface StudentInfoResponse {
   cmuitaccount_name: string

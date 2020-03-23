@@ -13,8 +13,8 @@ export class CMURegService {
       firstNameEN: studentInfo.firstname_EN,
       lastNameTH: studentInfo.lastname_TH,
       lastNameEN: studentInfo.lastname_EN,
-      organizationTH: studentInfo.organization_name_TH,
-      organizationEN: studentInfo.organization_name_EN,
+      organizationNameTH: studentInfo.organization_name_TH,
+      organizationNameEN: studentInfo.organization_name_EN,
     }
   }
 
