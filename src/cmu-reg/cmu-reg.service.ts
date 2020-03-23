@@ -18,6 +18,13 @@ export class CMURegService {
     }
   }
 
+  /**
+   * Retrive student information form cmu registration
+   * @param req - Express request object
+   * @requires authorization - bearer token type
+   * @returns Student information
+   * @throws Unauthorized exception when token expires
+   */
   async getStudentInfo(req: Request) {
     const { headers } = req
     try {
