@@ -29,12 +29,10 @@ export class UsersAPI extends RESTDataSource {
   async getUser(studentId: string): Promise<UserType>
 
   async getUser(idOrStudentId: number | string): Promise<UserType> {
-    console.log(idOrStudentId)
     switch (typeof idOrStudentId) {
       case 'number':
         return this.get(`users/${idOrStudentId}`)
       case 'string':
-        console.log('exe here')
         const users = await this.get('users', { studentId: idOrStudentId })
         return users[0]
     }
