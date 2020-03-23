@@ -26,11 +26,18 @@ export class UserRessolver {
   ): Promise<UserType[]> {
     return usersAPI.getUsers({ studentId })
   }
-  @ResolveField('review', () => [ReviewType])
-  async review(
+
+  @ResolveField('reviews', () => [ReviewType])
+  async reviews(
     @Parent() { studentId }: UserType,
+    @Args({
+      name: 'courseId',
+      type: () => String,
+      nullable: true,
+    })
+    courseId: string,
     @Context('dataSources') { reviewsAPI }: DataSources,
   ) {
-    return reviewsAPI.getReviews({ studentId })
+    return reviewsAPI.getReviews({ studentId, courseId })
   }
 }

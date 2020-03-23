@@ -15,7 +15,7 @@ export class CMURegResolver {
    * @param studentInfo - Student Information from CMU Registration
    * @returns Response GraphQL query
    */
-  @Query(() => StudentInfo, { nullable: true })
+  @Query(() => UserType, { nullable: true })
   async me(
     @User() studentInfo: StudentInfo,
     @Context('dataSources') { usersAPI }: DataSources,
