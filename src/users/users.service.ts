@@ -22,9 +22,10 @@ export class UsersAPI extends RESTDataSource {
   async getUser(id: number): Promise<UserType>
 
   /**
+   * @warn This method doesn't throw 404 when user not found
    *
    * @param studentId - Student id in CMU registration
-   * @returns User information
+   * @returns User information or undefined
    */
   async getUser(studentId: string): Promise<UserType>
 

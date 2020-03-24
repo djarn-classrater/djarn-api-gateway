@@ -51,12 +51,15 @@ export class ReviewsResolver {
     return coursesAPI.getCourse(courseId)
   }
 
-  @ResolveField('user', () => [UserType])
+  /**
+   * @warn review and user database not sync right now
+   */
+  @ResolveField('user', () => UserType, { nullable: true })
   async user(
     @Parent() { studentId }: ReviewType,
     @Context('dataSources') { usersAPI }: DataSources,
   ) {
-    return usersAPI.getUsers({ studentId })
+    return usersAPI.getUser(studentId)
   }
 
   @ResolveField('like', () => [LikeType])
