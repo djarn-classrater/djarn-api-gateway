@@ -5,7 +5,7 @@ import { CourseType } from '../courses/courses.dto'
 @ObjectType()
 export class ReviewType {
   @Field(() => ID)
-  readonly id?: string | number
+  readonly id?: number
 
   @Field()
   @IsString()

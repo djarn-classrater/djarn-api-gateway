@@ -26,6 +26,7 @@ export type DataSources = {
   likesAPI: LikesAPI
   ratesAPI: RatesAPI
   usersAPI: UsersAPI
+  cmuRegAPI: CMURegService
 }
 
 // Extract ExpressContext interface
@@ -33,8 +34,8 @@ type ExpressContextConfig = Pick<ApolloServerExpressConfig, 'context'>
 type ExpressContextFunction = Extract<ExpressContextConfig['context'], Function>
 type ExpressContext = Parameters<ExpressContextFunction>[0]
 
-export interface TContext extends DataSources, ExpressContext {
-  cmuRegService: CMURegService
+export interface TContext extends ExpressContext {
+  dataSources: DataSources
 }
 
 interface Options
@@ -51,10 +52,10 @@ interface Options
         likesAPI: new LikesAPI(),
         ratesAPI: new RatesAPI(),
         usersAPI: new UsersAPI(),
+        cmuRegAPI: new CMURegService(),
       }),
       context: ({ req }) => ({
         req,
-        cmuRegService: new CMURegService(new HttpService()),
       }),
       cache: new RedisCache({
         host: 'cache',

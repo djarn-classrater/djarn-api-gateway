@@ -1,11 +1,10 @@
-import { Injectable, HttpService, UnauthorizedException } from '@nestjs/common'
-import { Request } from 'express'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { StudentInfo, StudentInfoResponse } from './cmu-reg.dto'
+import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest'
+import { TContext } from 'src/app.module'
 
 @Injectable()
-export class CMURegService {
-  constructor(private httpService: HttpService) {}
-
+export class CMURegService extends RESTDataSource<TContext> {
   protected reducer(studentInfo: StudentInfoResponse): StudentInfo {
     return {
       studentId: studentInfo.student_id,
@@ -18,6 +17,11 @@ export class CMURegService {
     }
   }
 
+  willSendRequest(request: RequestOptions): void {
+    const { authorization } = this.context.req.headers
+    request.headers.set('Authorization', authorization)
+  }
+
   /**
    * Retrive student information form cmu registration
    * @param req - Express request object
@@ -25,20 +29,12 @@ export class CMURegService {
    * @returns Student information
    * @throws Unauthorized exception when token expires
    */
-  async getStudentInfo(req: Request) {
-    const { headers } = req
+  async getStudentInfo() {
     try {
-      const { data } = await this.httpService
-        .get<StudentInfoResponse>(
-          'https://misapi.cmu.ac.th/cmuitaccount/v1/api/cmuitaccount/basicinfo',
-          {
-            headers: {
-              authorization: headers.authorization,
-            },
-          },
-        )
-        .toPromise()
-      return this.reducer(data)
+      const res = await this.get<StudentInfoResponse>(
+        'https://misapi.cmu.ac.th/cmuitaccount/v1/api/cmuitaccount/basicinfo',
+      )
+      return this.reducer(res)
     } catch (e) {
       if (e.response.data.Message === 'Unauthorized')
         throw new UnauthorizedException()

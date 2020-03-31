@@ -23,10 +23,7 @@ export class LikeResolver {
     reviewId: string,
     @Context('dataSources') { likesAPI }: DataSources,
   ): Promise<LikeType[]> {
-    return likesAPI.getlikes({
-      studentId,
-      reviewId,
-    })
+    return likesAPI.getlikes({ studentId, reviewId })
   }
 
   @Mutation(() => LikeType)

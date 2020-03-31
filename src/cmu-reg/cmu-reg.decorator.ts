@@ -8,9 +8,9 @@ export const User = createParamDecorator<
   ExecutionContext,
   Promise<StudentInfo>
 >(async (_, ctx) => {
-  const { req, cmuRegService } = GqlExecutionContext.create(ctx).getContext<
-    TContext
-  >()
-  const studentInfo = await cmuRegService.getStudentInfo(req)
+  const {
+    dataSources: { cmuRegAPI },
+  } = GqlExecutionContext.create(ctx).getContext<TContext>()
+  const studentInfo = await cmuRegAPI.getStudentInfo()
   return studentInfo
 })

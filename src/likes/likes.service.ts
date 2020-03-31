@@ -15,8 +15,16 @@ export class LikesAPI extends RESTDataSource {
     return this.get('likes', clean(filter))
   }
 
-  async getlike(id): Promise<LikeType> {
-    return this.get(`likes/${id}`)
+  async getlike(id: number): Promise<LikeType>
+  async getlike(studentId: string, reviewId: number): Promise<LikeType>
+
+  async getlike(id: number | string, reviewId?: number): Promise<LikeType> {
+    switch (typeof id) {
+      case 'number':
+        return this.get(`likes/${id}`)
+      case 'string':
+        return this.getlikes({ studentId: id, reviewId })[0]
+    }
   }
 
   async createLike(like: LikeInput): Promise<LikeType> {
