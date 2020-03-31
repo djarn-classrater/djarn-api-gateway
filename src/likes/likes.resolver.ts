@@ -1,8 +1,9 @@
 import { LikeType } from './likes.dto'
 import { Injectable } from '@nestjs/common'
-import { Resolver, Query, Args, Context, Mutation } from '@nestjs/graphql'
+import { Resolver, Query, Args, Context, Mutation, Int } from '@nestjs/graphql'
 import { DataSources } from '../app.module'
-import { LikeInput } from './likes.input'
+import { User } from 'src/cmu-reg/cmu-reg.decorator'
+import { StudentInfo } from 'src/cmu-reg/cmu-reg.dto'
 
 @Injectable()
 @Resolver(() => LikeType)
@@ -29,12 +30,13 @@ export class LikeResolver {
   @Mutation(() => LikeType)
   async createLike(
     @Args({
-      name: 'like',
-      type: () => LikeInput,
+      name: 'reviewId',
+      type: () => Int,
     })
-    like: LikeInput,
+    reviewId: number,
+    @User() { studentId }: StudentInfo,
     @Context('dataSources') { likesAPI }: DataSources,
   ): Promise<LikeType> {
-    return likesAPI.createLike(like)
+    return likesAPI.createLike({ reviewId, studentId })
   }
 }
