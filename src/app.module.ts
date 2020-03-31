@@ -1,4 +1,5 @@
 import { Module, HttpService } from '@nestjs/common'
+import { RedisCache } from 'apollo-server-cache-redis'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule, GqlModuleOptions } from '@nestjs/graphql'
 import { AppController } from './app.controller'
@@ -55,6 +56,13 @@ interface Options
         req,
         cmuRegService: new CMURegService(new HttpService()),
       }),
+      cache: new RedisCache({
+        host: 'cache',
+        port: 6379,
+      }),
+      cacheControl: {
+        defaultMaxAge: 60,
+      },
       tracing: true,
       autoSchemaFile: 'generate.gql',
       include: [
