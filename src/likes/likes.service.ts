@@ -23,7 +23,8 @@ export class LikesAPI extends RESTDataSource {
       case 'number':
         return this.get(`likes/${id}`)
       case 'string':
-        return this.getlikes({ studentId: id, reviewId })[0]
+        const likes = await this.getlikes({ studentId: id, reviewId })
+        return likes[0]
     }
   }
 

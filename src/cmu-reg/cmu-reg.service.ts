@@ -36,8 +36,8 @@ export class CMURegService extends RESTDataSource<TContext> {
       )
       return this.reducer(res)
     } catch (e) {
-      if (e.response.data.Message === 'Unauthorized')
-        throw new UnauthorizedException()
+      const { status } = <Response>e.extensions.response
+      if (status === 400) throw new UnauthorizedException()
     }
   }
 }

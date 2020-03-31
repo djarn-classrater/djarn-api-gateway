@@ -62,13 +62,14 @@ export class ReviewsResolver {
     return usersAPI.getUser(studentId)
   }
 
-  @ResolveField('like', () => Boolean)
+  @ResolveField('like', () => Boolean, { nullable: true })
   async like(
     @User() { studentId }: StudentInfo,
     @Parent() { id: reviewId }: ReviewType,
     @Context('dataSources') { likesAPI }: DataSources,
   ): Promise<boolean> {
-    return !!(await likesAPI.getlike(studentId, reviewId))
+    const like = await likesAPI.getlike(studentId, reviewId)
+    return !!like
   }
 
   @ResolveField('rate', () => Int, { nullable: true })
