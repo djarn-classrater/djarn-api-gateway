@@ -5,8 +5,8 @@ export class UserType {
   @Field(() => ID)
   readonly id?: string
 
-  @Field()
-  readonly studentId: string
+  @Field({ nullable: true })
+  readonly studentId?: string
 
   @Field()
   readonly firstNameTH: string
@@ -25,4 +25,8 @@ export class UserType {
 
   @Field()
   readonly organizationNameEN: string
+
+  constructor() {
+    this.studentId = null
+  }
 }

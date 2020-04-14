@@ -1,10 +1,24 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { StudentInfo, StudentInfoResponse } from './cmu-reg.dto'
+import { DataSourceConfig } from 'apollo-datasource'
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest'
 import { TContext } from 'src/app.module'
 
 @Injectable()
 export class CMURegService extends RESTDataSource<TContext> {
+  private studentInfo: StudentInfo
+  private status: number
+
+  constructor() {
+    super()
+    this.baseURL = 'https://misapi.cmu.ac.th/cmuitaccount/v1/api/'
+  }
+
+  async initialize(config: DataSourceConfig<TContext>) {
+    super.initialize(config)
+    await this.authorization()
+  }
+
   protected reducer(studentInfo: StudentInfoResponse): StudentInfo {
     return {
       studentId: studentInfo.student_id,
@@ -29,15 +43,24 @@ export class CMURegService extends RESTDataSource<TContext> {
    * @returns Student information
    * @throws Unauthorized exception when token expires
    */
-  async getStudentInfo() {
+  private async authorization() {
     try {
-      const res = await this.get<StudentInfoResponse>(
-        'https://misapi.cmu.ac.th/cmuitaccount/v1/api/cmuitaccount/basicinfo',
-      )
-      return this.reducer(res)
+      if (this.context.req.headers.authorization) {
+        const res = await this.get<StudentInfoResponse>(
+          'cmuitaccount/basicinfo',
+        )
+        this.studentInfo = this.reducer(res)
+      } else {
+        this.studentInfo = new StudentInfo()
+      }
     } catch (e) {
       const { status } = <Response>e.extensions.response
-      if (status === 400) throw new UnauthorizedException()
+      if (status === 400) this.status = status
     }
+  }
+
+  async getStudentInfo() {
+    if (this.status === 400) throw new UnauthorizedException()
+    return this.studentInfo
   }
 }

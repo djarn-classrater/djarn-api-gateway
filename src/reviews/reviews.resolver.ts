@@ -68,6 +68,7 @@ export class ReviewsResolver {
     @Parent() { id: reviewId }: ReviewType,
     @Context('dataSources') { likesAPI }: DataSources,
   ): Promise<boolean> {
+    if (!studentId) return null
     const like = await likesAPI.getlike(studentId, reviewId)
     return !!like
   }
