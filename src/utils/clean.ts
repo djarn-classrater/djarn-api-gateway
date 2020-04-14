@@ -1,11 +1,11 @@
 import _ from 'lodash'
 
 export interface IFilter {
-  [key: string]: number | string | undefined | null
+  [key: string]: number | string | number[] | string[] | undefined | null
 }
 
 export interface ICleanFilter {
-  [key: string]: number | string
+  [key: string]: number | string | number[] | string[]
 }
 
 // remove undefined property in object
