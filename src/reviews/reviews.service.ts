@@ -15,7 +15,7 @@ export class ReviewsAPI extends RESTDataSource {
     return this.get('reviews', clean(filter))
   }
 
-  async getReview(id): Promise<ReviewType> {
+  async getReview(id: number): Promise<ReviewType> {
     return this.get(`reviews/${id}`)
   }
 
