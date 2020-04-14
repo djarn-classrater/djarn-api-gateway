@@ -1,10 +1,10 @@
-import { Field, ID, ObjectType, Int } from '@nestjs/graphql'
+import { Field, ObjectType, Int } from '@nestjs/graphql'
 import { IsString, IsNotEmpty } from 'class-validator'
 
 @ObjectType()
 export class LikeType {
-  @Field(() => ID)
-  readonly id?: number | string
+  @Field(() => Int)
+  readonly id?: number
 
   @Field()
   @IsString()

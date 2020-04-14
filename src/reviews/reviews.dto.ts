@@ -1,10 +1,10 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql'
+import { ObjectType, Field, Int } from '@nestjs/graphql'
 import { IsString, IsNotEmpty } from 'class-validator'
 import { CourseType } from '../courses/courses.dto'
 
 @ObjectType()
 export class ReviewType {
-  @Field(() => ID)
+  @Field(() => Int)
   readonly id?: number
 
   @Field()

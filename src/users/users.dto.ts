@@ -1,9 +1,9 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql'
+import { ObjectType, Field, Int } from '@nestjs/graphql'
 
 @ObjectType()
 export class UserType {
-  @Field(() => ID)
-  readonly id?: string
+  @Field(() => Int)
+  readonly id?: number
 
   @Field({ nullable: true })
   readonly studentId?: string

@@ -1,9 +1,9 @@
-import { ObjectType, Field, ID, Int, Float } from '@nestjs/graphql'
+import { ObjectType, Field, Int, Float } from '@nestjs/graphql'
 import { IsString, IsNotEmpty } from 'class-validator'
 
 @ObjectType()
 export class RateType {
-  @Field(() => ID)
+  @Field(() => Int)
   readonly id: number
 
   @Field()
