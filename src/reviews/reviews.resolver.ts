@@ -35,11 +35,21 @@ export class ReviewsResolver {
       nullable: true,
     })
     studentId: string,
-    @Context('dataSources') { reviewsAPI }: DataSources,
+    @Args({
+      name: 'includeMe',
+      type: () => Boolean,
+      description: 'Include reiviews has logged in with user',
+      defaultValue: true,
+    })
+    includeMe: boolean,
+    @Context('dataSources')
+    { reviewsAPI, cmuRegAPI }: DataSources,
   ): Promise<ReviewType[]> {
+    const excludeId = !includeMe && (await cmuRegAPI.getStudentInfo()).studentId
     return reviewsAPI.getReviews({
       courseId,
       studentId,
+      excludeStudentIds: [excludeId],
     })
   }
 

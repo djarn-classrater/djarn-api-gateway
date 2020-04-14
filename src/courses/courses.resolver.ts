@@ -26,9 +26,17 @@ export class CoursesResolver {
   @ResolveField('reviews', () => [ReviewType])
   async reviews(
     @Parent() { courseId }: CourseType,
-    @Context('dataSources') { reviewsAPI }: DataSources,
+    @Args({
+      name: 'includeMe',
+      type: () => Boolean,
+      description: 'Include reiviews has logged in with user',
+      defaultValue: true,
+    })
+    includeMe: boolean,
+    @Context('dataSources') { reviewsAPI, cmuRegAPI }: DataSources,
   ) {
-    return reviewsAPI.getReviews({ courseId })
+    const excludeId = !includeMe && (await cmuRegAPI.getStudentInfo()).studentId
+    return reviewsAPI.getReviews({ courseId, excludeStudentIds: [excludeId] })
   }
 
   @ResolveField('rating', () => [RateType])
