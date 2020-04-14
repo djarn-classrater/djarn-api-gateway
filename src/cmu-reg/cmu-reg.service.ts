@@ -50,17 +50,12 @@ export class CMURegService extends RESTDataSource<TContext> {
           'cmuitaccount/basicinfo',
         )
         this.studentInfo = this.reducer(res)
-      } else {
-        this.studentInfo = new StudentInfo()
       }
-    } catch (e) {
-      const { status } = <Response>e.extensions.response
-      if (status === 400) this.status = status
-    }
+    } catch (e) {}
   }
 
   async getStudentInfo() {
-    if (this.status === 400) throw new UnauthorizedException()
+    if (!this.studentInfo) throw new UnauthorizedException()
     return this.studentInfo
   }
 }
