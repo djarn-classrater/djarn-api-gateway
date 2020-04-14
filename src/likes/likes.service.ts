@@ -31,4 +31,8 @@ export class LikesAPI extends RESTDataSource {
   async createLike(like: LikeInput): Promise<LikeType> {
     return this.post('likes', { ...like })
   }
+
+  async deleteLike(likeId: number): Promise<void> {
+    await this.delete(`likes/${likeId}`)
+  }
 }

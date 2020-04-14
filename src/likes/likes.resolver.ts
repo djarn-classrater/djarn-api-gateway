@@ -1,5 +1,5 @@
 import { LikeType } from './likes.dto'
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import { Resolver, Query, Args, Context, Mutation, Int } from '@nestjs/graphql'
 import { DataSources } from '../app.module'
 import { User } from 'src/cmu-reg/cmu-reg.decorator'
@@ -38,5 +38,21 @@ export class LikeResolver {
     @Context('dataSources') { likesAPI }: DataSources,
   ): Promise<LikeType> {
     return likesAPI.createLike({ reviewId, studentId })
+  }
+
+  @Mutation(() => LikeType)
+  async deleteLike(
+    @Args({
+      name: 'reviewId',
+      type: () => Int,
+    })
+    reviewId: number,
+    @User() { studentId }: StudentInfo,
+    @Context('dataSources') { likesAPI }: DataSources,
+  ): Promise<LikeType> {
+    const like = await likesAPI.getlike(studentId, reviewId)
+    if (!like) throw new NotFoundException()
+    await likesAPI.deleteLike(like.id)
+    return like
   }
 }
