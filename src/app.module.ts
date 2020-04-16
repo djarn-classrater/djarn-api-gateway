@@ -19,6 +19,7 @@ import { CMURegModule } from './cmu-reg/cmu-reg.module'
 import { CMURegService } from './cmu-reg/cmu-reg.service'
 
 import { ApolloServerExpressConfig } from 'apollo-server-express'
+import { SearchModule } from './search/search.module'
 
 export type DataSources = {
   reviewsAPI: ReviewsAPI
@@ -83,6 +84,7 @@ interface Options
     RatesModule,
     UsersModule,
     CMURegModule,
+    SearchModule,
   ],
   controllers: [AppController],
   providers: [AppService],
