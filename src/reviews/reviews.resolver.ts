@@ -83,6 +83,17 @@ export class ReviewsResolver {
     return !!like
   }
 
+  /**
+   * Number of likes in this review
+   */
+  @ResolveField('likes', () => Int)
+  async likes(
+    @Parent() { id: reviewId }: ReviewType,
+    @Context('dataSources') { likesAPI }: DataSources,
+  ): Promise<number> {
+    return likesAPI.getLikeCount(reviewId)
+  }
+
   @ResolveField('rate', () => Int, { nullable: true })
   async rate(
     @Parent() { studentId, courseId }: ReviewType,

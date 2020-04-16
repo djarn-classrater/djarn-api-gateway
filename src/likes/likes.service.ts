@@ -28,6 +28,11 @@ export class LikesAPI extends RESTDataSource {
     }
   }
 
+  async getLikeCount(reviewId: number): Promise<number> {
+    const res = await this.get<{ count: number }>('likes/count', { reviewId })
+    return res.count
+  }
+
   async createLike(like: LikeInput): Promise<LikeType> {
     return this.post('likes', { ...like })
   }
