@@ -75,6 +75,7 @@ interface Options
         RatesModule,
         UsersModule,
         CMURegModule,
+        SearchModule,
       ],
     }),
     PingModule,

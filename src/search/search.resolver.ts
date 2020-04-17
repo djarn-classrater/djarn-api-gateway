@@ -1,4 +1,7 @@
-import { Resolver } from '@nestjs/graphql'
+import { Resolver, Query } from '@nestjs/graphql'
+import { SearchService } from './search.service'
 
 @Resolver('Search')
-export class SearchResolver {}
+export class SearchResolver {
+  constructor(private searchService: SearchService) {}
+}

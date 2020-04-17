@@ -29,6 +29,7 @@
     "@nestjs/config": "^0.4.0",
     "@nestjs/core": "^7.0.5",
     "@nestjs/graphql": "^7.0.13",
+    "@nestjs/microservices": "^7.0.8",
     "@nestjs/platform-express": "^7.0.5",
     "apollo-datasource-rest": "^0.7.0",
     "apollo-server-cache-redis": "^1.1.5",
