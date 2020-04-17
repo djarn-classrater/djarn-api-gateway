@@ -1,4 +1,4 @@
-import { Field, InputType, ID, ArgsType } from '@nestjs/graphql'
+import { Field, InputType, Int, ArgsType } from '@nestjs/graphql'
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator'
 
 @InputType()
@@ -27,7 +27,7 @@ class UpdateReviewInput {
 
 @ArgsType()
 export class UpdateReviewArgs {
-  @Field(() => ID)
+  @Field(() => Int)
   @IsNumber()
   @IsNotEmpty()
   readonly id: number

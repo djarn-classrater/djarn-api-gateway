@@ -1,4 +1,4 @@
-import { Field, InputType, ArgsType, ID } from '@nestjs/graphql'
+import { Field, InputType, ArgsType, Int } from '@nestjs/graphql'
 import { IsString, IsNotEmpty, IsNumber } from 'class-validator'
 import { RateType } from './rates.dto'
 
@@ -20,19 +20,12 @@ export class RateInput implements Partial<RateType> {
   readonly rating: number
 }
 
-@InputType()
-class UpdateRateInput implements Partial<RateType> {
-  @Field()
-  @IsNumber()
-  readonly rating: number
-}
-
 @ArgsType()
 export class UpdateRateArgs {
-  @Field(() => ID)
+  @Field(() => Int)
   @IsNotEmpty()
   readonly id: number
 
-  @Field(() => UpdateRateInput)
-  readonly rate: UpdateRateInput
+  @Field(() => Int)
+  readonly rate: number
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { RESTDataSource } from 'apollo-datasource-rest'
 import { RateType, RateSummary } from './rates.dto'
-import { RateInput } from './rates.input'
+import { RateInput, UpdateRateArgs } from './rates.input'
 import { IFilter, clean } from 'src/utils/clean'
 
 @Injectable()
@@ -25,5 +25,9 @@ export class RatesAPI extends RESTDataSource {
 
   async createRating(rates: RateInput): Promise<RateType> {
     return this.post('rates', { ...rates })
+  }
+
+  async updateRating({ id, rate }: UpdateRateArgs): Promise<void> {
+    return this.patch(`rates/${id}`, { rating: rate })
   }
 }

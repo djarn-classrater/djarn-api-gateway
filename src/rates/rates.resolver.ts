@@ -52,6 +52,7 @@ export class RatesResolver {
     @Args() rateArgs: UpdateRateArgs,
     @Context('dataSources') { ratesAPI }: DataSources,
   ): Promise<RateType> {
+    await ratesAPI.updateRating(rateArgs)
     return ratesAPI.getRating(rateArgs.id)
   }
 
