@@ -17,6 +17,7 @@ import { UserType } from 'src/users/users.dto'
 import { LikeType } from 'src/likes/likes.dto'
 import { User } from 'src/cmu-reg/cmu-reg.decorator'
 import { StudentInfo } from 'src/cmu-reg/cmu-reg.dto'
+import { RateType } from 'src/rates/rates.dto'
 
 @Injectable()
 @Resolver(() => ReviewType)
@@ -101,6 +102,15 @@ export class ReviewsResolver {
   ): Promise<number> {
     const response = await ratesAPI.getRatings({ studentId, courseId })
     return response[0] ? response[0].rating : null
+  }
+
+  @ResolveField('rateInfo', () => RateType, { nullable: true })
+  async rateInfo(
+    @Parent() { studentId, courseId }: ReviewType,
+    @Context('dataSources') { ratesAPI }: DataSources,
+  ) {
+    const response = await ratesAPI.getRatings({ studentId, courseId })
+    return response[0]
   }
 
   /**

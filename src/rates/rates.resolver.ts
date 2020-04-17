@@ -30,15 +30,9 @@ export class RatesResolver {
       nullable: true,
     })
     courseId: string,
-    @Args({
-      name: 'rating',
-      type: () => String,
-      nullable: true,
-    })
-    rating: string,
     @Context('dataSources') { ratesAPI }: DataSources,
   ): Promise<RateType[]> {
-    return ratesAPI.getRatings({ studentId, courseId, rating })
+    return ratesAPI.getRatings({ studentId, courseId })
   }
 
   @Mutation(() => RateType)
