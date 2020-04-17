@@ -18,13 +18,6 @@ export class ReviewInput {
   readonly context?: string
 }
 
-@InputType()
-class UpdateReviewInput {
-  @Field()
-  @IsString()
-  readonly context?: string
-}
-
 @ArgsType()
 export class UpdateReviewArgs {
   @Field(() => Int)
@@ -32,6 +25,7 @@ export class UpdateReviewArgs {
   @IsNotEmpty()
   readonly id: number
 
-  @Field(() => UpdateReviewInput)
-  readonly review: UpdateReviewInput
+  @Field()
+  @IsString()
+  readonly context?: string
 }

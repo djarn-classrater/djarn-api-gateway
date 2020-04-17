@@ -24,7 +24,7 @@ export class ReviewsAPI extends RESTDataSource {
     return this.post('reviews', { ...review })
   }
 
-  async updateReview({ id, review }: UpdateReviewArgs): Promise<void> {
-    return this.patch(`reviews/${id}`, { ...review })
+  async updateReview({ id, context }: UpdateReviewArgs): Promise<void> {
+    return this.patch(`reviews/${id}`, { context })
   }
 }
