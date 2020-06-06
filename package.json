@@ -33,7 +33,7 @@
     "@nestjs/platform-express": "^7.0.5",
     "apollo-datasource-rest": "^0.7.0",
     "apollo-server-cache-redis": "^1.1.5",
-    "apollo-server-express": "^2.10.1",
+    "apollo-server-express": "^2.14.2",
     "class-validator": "^0.11.0",
     "graphql": "^14.6.0",
     "graphql-tools": "^4.0.7",
